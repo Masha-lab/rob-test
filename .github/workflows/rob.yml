@@ -1,0 +1,27 @@
+name: ROB Test
+
+on: [push, workflow_dispatch]
+
+jobs:
+  test-x86-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install g++
+        run: sudo apt-get update && sudo apt-get install -y g++
+      
+      - name: Compile
+        run: g++ -O3 -o lab10 lab10.cpp
+      
+      - name: Run test
+        run: ./lab10 > results_server.csv
+      
+      - name: Show results
+        run: cat results_server.csv
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: rob-results-server
+          path: results_server.csv
