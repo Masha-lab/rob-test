@@ -3,7 +3,6 @@ name: ROB Test Multi-Arch
 on: [push, workflow_dispatch]
 
 jobs:
-  # x86 сервер (Intel Xeon)
   test-x86:
     runs-on: ubuntu-latest
     steps:
@@ -21,14 +20,13 @@ jobs:
           name: results-x86
           path: results_x86.csv
 
-  # ARM сервер (Apple M1/M2)
   test-arm:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compile for ARM
+      - name: Compile ARM
         run: g++ -O3 -o lab10_arm lab10_arm.cpp
-      - name: Run
+      - name: Run ARM
         run: ./lab10_arm > results_arm.csv
       - name: Show results
         run: cat results_arm.csv
